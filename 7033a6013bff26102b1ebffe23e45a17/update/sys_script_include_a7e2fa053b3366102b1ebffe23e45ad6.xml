@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_1829062_cycloi_1.CycloidIntegration</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <mobile_callable>false</mobile_callable>
+        <name>CycloidIntegration</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var CycloidIntegration = Class.create();
+CycloidIntegration.prototype = {
+  initialize: function() {},
+
+  // Constant for your app scope
+  SCOPE: 'x_1829062_cycloi_1',
+
+  // Fetch stacks from Cycloid API
+  getStacks: function() {
+    var apiBase = gs.getProperty(this.SCOPE + '.cy_api_url', '').replace(/\/+$/, '');
+    var org = gs.getProperty(this.SCOPE + '.cy_organization_canonical', '');
+    var apiKey = gs.getProperty(this.SCOPE + '.cy_api_key', '');
+
+    if (!apiBase || !org || !apiKey) {
+      gs.error("Cycloid configuration incomplete (missing properties)");
+      return [];
+    }
+
+    var endpoint = apiBase + '/organizations/' + encodeURIComponent(org) +
+                   '/service_catalogs?infra_import_stack[eq]=false&page_index=1&page_size=10000';
+
+    var rm = new sn_ws.RESTMessageV2();
+    rm.setHttpMethod('get');
+    rm.setEndpoint(endpoint);
+    rm.setRequestHeader('Accept', 'application/json');
+    rm.setRequestHeader('Authorization', 'Bearer ' + apiKey);
+
+    var response = rm.execute();
+    var status = response.getStatusCode();
+    var body = response.getBody();
+
+    if (status < 200 || status >= 300) {
+      gs.error('Cycloid API error (' + status + '): ' + body);
+      return [];
+    }
+
+    var json = JSON.parse(body);
+    return json.items || json.stacks || json || [];
+  },
+
+  // Sync stacks to extended Service Catalog table
+  syncStacks: function() {
+    var catSysId = gs.getProperty(this.SCOPE + '.cy_catalog_category', '');
+    if (!catSysId) {
+      gs.error("Property cy_catalog_category not defined (put the sys_id of a catalog category)");
+      return;
+    }
+
+    var stacks = this.getStacks();
+
+    stacks.forEach(function(stack) {
+      var stackRef = stack.ref;
+      var name = stack.name || stackRef;
+      var desc = stack.description || '';
+      var icon = (stack.icon && stack.icon.url) || stack.icon || '';
+
+      // Use extended table for Cycloid stacks
+      var gr = new GlideRecord(this.SCOPE + '_cycloid_stack_item');
+      gr.addQuery('cycloid_stack_ref', stackRef);
+      gr.query();
+
+      if (gr.next()) {
+        // Update existing item
+        gr.short_description = name;
+        gr.description = desc;
+        if (icon) gr.picture = icon;
+        gr.category = catSysId;
+        gr.update();
+      } else {
+        // Create new item
+        gr.initialize();
+        gr.name = name;
+        gr.short_description = name;
+        gr.description = desc;
+        if (icon) gr.picture = icon;
+        gr.category = catSysId;
+        gr.cycloid_stack_ref = stackRef;
+        gr.insert();
+      }
+    });
+
+    gs.info("[CycloidIntegration] Synced " + stacks.length + " Cycloid stacks to Service Catalog");
+  },
+
+  type: 'CycloidIntegration'
+};
+]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-09-03 22:21:42</sys_created_on>
+        <sys_id>a7e2fa053b3366102b1ebffe23e45ad6</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>CycloidIntegration</sys_name>
+        <sys_package display_value="Cycloid Stack Catalog Connector" source="x_1829062_cycloi_1">7033a6013bff26102b1ebffe23e45a17</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Cycloid Stack Catalog Connector">7033a6013bff26102b1ebffe23e45a17</sys_scope>
+        <sys_update_name>sys_script_include_a7e2fa053b3366102b1ebffe23e45ad6</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-09-03 22:41:14</sys_updated_on>
+    </sys_script_include>
+</record_update>

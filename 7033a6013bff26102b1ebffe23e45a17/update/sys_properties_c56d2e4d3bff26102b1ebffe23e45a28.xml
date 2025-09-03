@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties">
+    <sys_properties action="INSERT_OR_UPDATE">
+        <choices/>
+        <description>The Cycloid API url</description>
+        <ignore_cache>true</ignore_cache>
+        <is_private>false</is_private>
+        <name>x_1829062_cycloi_1.cy_api_url</name>
+        <read_roles/>
+        <suffix>cy_api_url</suffix>
+        <sys_class_name>sys_properties</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-09-03 21:58:07</sys_created_on>
+        <sys_id>c56d2e4d3bff26102b1ebffe23e45a28</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1829062_cycloi_1.cy_api_url</sys_name>
+        <sys_package display_value="Cycloid Stack Catalog Connector" source="x_1829062_cycloi_1">7033a6013bff26102b1ebffe23e45a17</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Cycloid Stack Catalog Connector">7033a6013bff26102b1ebffe23e45a17</sys_scope>
+        <sys_update_name>sys_properties_c56d2e4d3bff26102b1ebffe23e45a28</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-09-03 21:58:07</sys_updated_on>
+        <type>string</type>
+        <value>htttps://http-api.cycloid.io</value>
+        <write_roles/>
+    </sys_properties>
+    <sys_translated_text action="delete_multiple" query="documentkey=c56d2e4d3bff26102b1ebffe23e45a28"/>
+</record_update>

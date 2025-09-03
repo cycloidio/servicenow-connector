@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_documentation element="" label="Cycloid Stack Item" language="en" table="x_1829062_cycloi_1_cycloid_stack_item">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element/>
+            <help/>
+            <hint/>
+            <label>Cycloid Stack Item</label>
+            <language>en</language>
+            <name>x_1829062_cycloi_1_cycloid_stack_item</name>
+            <plural>Cycloid Stack Items</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-09-03 22:30:56</sys_created_on>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Cycloid Stack Item</sys_name>
+            <sys_package display_value="Cycloid Stack Catalog Connector" source="x_1829062_cycloi_1">7033a6013bff26102b1ebffe23e45a17</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Cycloid Stack Catalog Connector">7033a6013bff26102b1ebffe23e45a17</sys_scope>
+            <sys_update_name>sys_documentation_x_1829062_cycloi_1_cycloid_stack_item__en</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-09-03 22:30:56</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

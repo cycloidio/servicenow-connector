@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="update_synch=true" db_object_id="5325fac53b3366102b1ebffe23e45aed" extends="sc_cat_item" label="Cycloid Stack Item" max_length="40" name="x_1829062_cycloi_1_cycloid_stack_item" type="collection">
+        <element label="Cycloid Stack Ref" mandatory="true" max_length="256" name="cycloid_stack_ref" type="string"/>
+    </element>
+</database>
