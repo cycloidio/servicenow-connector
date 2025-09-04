@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_section caption="Picture" section_id="ec8b13013b3766102b1ebffe23e45add" sys_domain="global" table="x_1829062_cycloi_1_cycloid_stack" version="3" view="">
+        <sys_ui_annotation action="INSERT_OR_UPDATE">
+            <is_plain_text>false</is_plain_text>
+            <name/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-09-04 01:18:26</sys_created_on>
+            <sys_id>b88b13013b3766102b1ebffe23e45adf</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-09-04 01:18:26</sys_updated_on>
+            <text>${gs.getMessage('Add an icon and picture for display')}</text>
+            <type display_value="Section Details">19756e5ec3313000bac1addbdfba8f18</type>
+        </sys_ui_annotation>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>b88b13013b3766102b1ebffe23e45adf</element>
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-09-04 01:18:26</sys_created_on>
+            <sys_id>348b13013b3766102b1ebffe23e45ae0</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Picture" display_value="Picture" name="x_1829062_cycloi_1_cycloid_stack" sys_domain="global" view="Default view">ec8b13013b3766102b1ebffe23e45add</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-09-04 01:18:26</sys_updated_on>
+            <sys_user/>
+            <type>annotation</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>icon</element>
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-09-04 01:18:26</sys_created_on>
+            <sys_id>608b13013b3766102b1ebffe23e45adf</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Picture" display_value="Picture" name="x_1829062_cycloi_1_cycloid_stack" sys_domain="global" view="Default view">ec8b13013b3766102b1ebffe23e45add</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-09-04 01:18:26</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>picture</element>
+            <position>2</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-09-04 01:18:26</sys_created_on>
+            <sys_id>3c8b13013b3766102b1ebffe23e45ae0</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Picture" display_value="Picture" name="x_1829062_cycloi_1_cycloid_stack" sys_domain="global" view="Default view">ec8b13013b3766102b1ebffe23e45add</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-09-04 01:18:26</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption>Picture</caption>
+            <header>false</header>
+            <name>x_1829062_cycloi_1_cycloid_stack</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-09-04 01:18:25</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>ec8b13013b3766102b1ebffe23e45add</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_1829062_cycloi_1_cycloid_stack</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="Cycloid Stack Catalog Connector" source="x_1829062_cycloi_1">7033a6013bff26102b1ebffe23e45a17</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Cycloid Stack Catalog Connector">7033a6013bff26102b1ebffe23e45a17</sys_scope>
+            <sys_update_name>sys_ui_section_ec8b13013b3766102b1ebffe23e45add</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-09-04 01:18:25</sys_updated_on>
+            <sys_user/>
+            <title>false</title>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+</record_update>
