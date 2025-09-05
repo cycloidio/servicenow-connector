@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
     <sys_script_include action="INSERT_OR_UPDATE">
-        <access>package_private</access>
+        <access>public</access>
         <active>true</active>
         <api_name>x_1829062_cycloi_1.CycloidIntegration</api_name>
         <caller_access/>
@@ -11,219 +11,262 @@
         <sandbox_callable>false</sandbox_callable>
         <script><![CDATA[var CycloidIntegration = Class.create();
 CycloidIntegration.prototype = {
-    initialize: function() {},
+	initialize: function() {},
 
-    _getConfig: function() {
-        var APP_ID = 'x_1829062_cycloi_1';
-        gs.info("Attempting to read configuration from " + APP_ID + "_cycloid_config...");
+	_getConfig: function() {
+		var APP_ID = 'x_1829062_cycloi_1';
+		gs.info("Attempting to read configuration from " + APP_ID + "_cycloid_config...");
 
-        var gr = new GlideRecord(APP_ID + '_cycloid_config');
-        gs.info("Table exists: " + !gr.isValid());
+		var gr = new GlideRecord(APP_ID + '_cycloid_config');
+		gs.info("Table exists: " + gr.isValid());
 
-        var queryResult = gr.query();
-        gs.info("Query executed. Number of records found: " + gr.getRowCount());
+		gr.query();
+		gs.info("Query executed. Number of records found: " + gr.getRowCount());
 
-        if (gr.next()) {
-            gs.info("Record found. Retrieving values...");
-            var config = {
-                api_url: gr.getValue('api_url'),
-                org: gr.getValue('organization_canonical'),
-                catalog_category: gr.getValue('catalog_category'),
-                console_url: gr.getValue('console_url'),
-                api_key: gr.getValue('api_key')
-            };
-            gs.info("Configuration values: " + JSON.stringify(config));
-            return config;
-        } else {
-            gs.error("No records found in " + APP_ID + "_cycloid_config.");
-            return null;
-        }
-    },
+		if (gr.next()) {
+			var config = {
+				api_url: gr.getValue('api_url'),
+				org: gr.getValue('organization_canonical'),
+				catalog_category: gr.getValue('catalog_category'), // REQUIRED: sc_category sys_id or title
+				console_url: gr.getValue('console_url'),
+				api_key: gr.getValue('api_key')
+			};
+			gs.info("Configuration values: " + JSON.stringify(config));
+			return config;
+		} else {
+			gs.error("No records found in " + APP_ID + "_cycloid_config.");
+			return null;
+		}
+	},
 
-    getStacks: function() {
-        var config = this._getConfig();
-        if (!config) {
-            gs.error("Cycloid configuration not found.");
-            return [];
-        }
+	getStacks: function() {
+		var config = this._getConfig();
+		if (!config) return [];
 
-        gs.info("Using configuration: " + JSON.stringify(config));
+		if (!config.api_url || !config.org || !config.api_key) {
+			gs.error("Incomplete configuration: api_url=" + config.api_url + ", org=" + config.org + ", apiKey=" + !!config.api_key);
+			return [];
+		}
 
-        if (!config.api_url || !config.org || !config.api_key) {
-            gs.error("Incomplete configuration: api_url=" + config.api_url + ", org=" + config.org + ", apiKey=" + !!config.api_key);
-            return [];
-        }
+		var endpoint = config.api_url + '/organizations/' + encodeURIComponent(config.org) + '/service_catalogs?infra_import_stack%5Beq%5D=false&page_index=1&page_size=10000';
+		gs.info("Calling Cycloid API at: " + endpoint);
 
-        // Base API URI. The full URL with the query string is constructed.
-        // The square brackets '[' and ']' of the 'infra_import_stack[eq]' parameter
-        // are replaced by their encoded equivalents (%5B and %5D) to bypass
-        // ServiceNow's URI validation.
-        var endpoint = config.api_url + '/organizations/' + encodeURIComponent(config.org) + '/service_catalogs?infra_import_stack%5Beq%5D=false&page_index=1&page_size=10000';
-        
-        gs.info("Calling Cycloid API at: " + endpoint);
+		var rm = new sn_ws.RESTMessageV2();
+		rm.setHttpMethod('get');
+		rm.setEndpoint(endpoint);
+		rm.setRequestHeader('Accept', 'application/json');
+		rm.setRequestHeader('Authorization', 'Bearer ' + config.api_key);
 
-        var rm = new sn_ws.RESTMessageV2();
-        rm.setHttpMethod('get');
-        
-        // Define the base endpoint.
-        rm.setEndpoint(endpoint);
+		var response = rm.execute();
+		var status = response.getStatusCode();
+		var body = response.getBody();
 
-        // The setQueryParameter() methods are no longer necessary
-        // as the query string is already built into the URL.
-        // rm.setQueryParameter('infra_import_stack[eq]', 'false');
-        // rm.setQueryParameter('page_index', '1');
-        // rm.setQueryParameter('page_size', '10000');
+		gs.info("API response status: " + status);
 
-        rm.setRequestHeader('Accept', 'application/json');
-        rm.setRequestHeader('Authorization', 'Bearer ' + config.api_key);
+		if (status < 200 || status >= 300) {
+			gs.error('Cycloid API Error (' + status + '): ' + body);
+			return [];
+		}
 
-        var response = rm.execute();
-        var status = response.getStatusCode();
-        var body = response.getBody();
+		try {
+			var json = JSON.parse(body);
+			gs.info("API response parsed successfully.");
+			return json.data || json.items || json.stacks || json || [];
+		} catch (e) {
+			gs.error("JSON parsing error: " + e);
+			return [];
+		}
+	},
 
-        gs.info("API response status: " + status);
+	// Main entry called by Scheduled Script
+	syncStacks: function() {
+		gs.info('Starting stack synchronization with Cycloid API.');
+		var config = this._getConfig();
+		if (!config) return;
 
-        if (status < 200 || status >= 300) {
-            gs.error('Cycloid API Error (' + status + '): ' + body);
-            return [];
-        }
+		// Resolve REQUIRED target category (must already exist)
+		var categorySysId = this._resolveExistingCategory(config.catalog_category);
+		if (!categorySysId) {
+			gs.error("Configured 'catalog_category' not found. Provide an existing sc_category sys_id (preferred) or title.");
+			return;
+		}
+		gs.info("Using service catalog category: " + categorySysId);
 
-        try {
-            // Added logs to debug the JSON structure
-            gs.info("API response body: " + body);
-            var json = JSON.parse(body);
-            gs.info("Parsed JSON object: " + JSON.stringify(json));
-            gs.info("API response parsed successfully.");
-            return json.data || json.items || json.stacks || json || [];
-        } catch (e) {
-            gs.error("JSON parsing error: " + e);
-            return [];
-        }
-    },
+		var stacks = this.getStacks();
+		if (stacks.length === 0) {
+			gs.info('No stacks were retrieved.');
+			return;
+		}
+		gs.info('Successfully retrieved ' + stacks.length + ' stacks.');
 
-    // Method to be called by the scheduled script
-    syncStacks: function() {
-        gs.info('Starting stack synchronization with Cycloid API.');
-        var config = this._getConfig();
-        if (!config) {
-            gs.error("Cycloid configuration not found. Cannot synchronize stacks.");
-            return;
-        }
+		var APP_ID = 'x_1829062_cycloi_1';
+		var TABLE_NAME = APP_ID + '_cycloid_stack';
 
-        var stacks = this.getStacks();
-        if (stacks.length === 0) {
-            gs.info('No stacks were retrieved. Check logs for errors.');
-            return;
-        }
+		for (var i = 0; i < stacks.length; i++) {
+			var stack = stacks[i];
 
-        gs.info('Successfully retrieved ' + stacks.length + ' stacks.');
+			// Build external URL to open when user clicks the tile/card
+			var stackUrl = (config.console_url || '').replace(/\/+$/,'') +
+				'/organizations/' + encodeURIComponent(config.org) +
+				'/stacks/' + encodeURIComponent(stack.ref);
 
-        var categoryName = config.catalog_category || 'Cycloid Stacks';
-        var categorySysId = this._getOrCreateCategory(categoryName);
-        if (!categorySysId) {
-            gs.error("Failed to get or create the service catalog category: " + categoryName);
-            return;
-        }
+			var grItem = new GlideRecord(TABLE_NAME);
+			grItem.addQuery('u_cycloid_stack_ref', stack.ref);
+			grItem.query();
 
-        gs.info("Using service catalog category: " + categoryName + " (Sys ID: " + categorySysId + ")");
-        
-        var APP_ID = 'x_1829062_cycloi_1';
-        var TABLE_NAME = APP_ID + '_cycloid_stack';
+			var isUpdate = grItem.next();
+			if (!isUpdate) grItem.initialize();
 
-        // Loop through each stack and create a new service catalog item
-        for (var i = 0; i < stacks.length; i++) {
-            var stack = stacks[i];
-            
-            // Construct the URL for the catalog item
-            var stackUrl = config.console_url + '/organizations/' + config.org + '/stacks/' + stack.ref;
+			// REQUIRED catalog item fields for external redirect + portal cards
+			grItem.name = stack.name;
+			grItem.short_description = (stack.description || 'Cycloid Service Catalog Stack').toString().substring(0, 160);
+			grItem.description = stack.description || 'Cycloid Service Catalog Stack';
+			grItem.category = categorySysId;
 
-            gs.info("Creating or updating catalog item for stack: " + stack.name);
-            
-            var grCatItem = new GlideRecord(TABLE_NAME);
-            
-            // Check if a catalog item for this stack already exists
-            // Using the custom field 'u_cycloid_stack_ref' to ensure uniqueness
-            grCatItem.addQuery('u_cycloid_stack_ref', stack.ref);
-            grCatItem.query();
+			// Make it a Content item that opens an external URL
+			grItem.type = 'content';               // important: content item
+			grItem.content_type = 'external';      // external link
+			grItem.url = stackUrl;                 // where to go
+			grItem.url_target = '_blank';          // open in new tab (or use '_self')
 
-            if (grCatItem.next()) {
-                gs.info("Catalog item for " + stack.name + " already exists. Updating.");
-                grCatItem.name = stack.name;
-                grCatItem.description = stack.description || 'Cycloid Service Catalog Stack';
-                grCatItem.category = categorySysId;
-                grCatItem.url = stackUrl;
-                grCatItem.content_type = 'external';
-                grCatItem.active = true;
-                grCatItem.sys_class_name = TABLE_NAME;
-                grCatItem.update();
-            } else {
-                grCatItem.initialize();
-                grCatItem.name = stack.name;
-                grCatItem.description = stack.description || 'Cycloid Service Catalog Stack';
-                grCatItem.category = categorySysId;
-                grCatItem.url = stackUrl;
-                grCatItem.content_type = 'external';
-                grCatItem.active = true;
-                grCatItem.sys_class_name = TABLE_NAME;
-                grCatItem.setValue('u_cycloid_stack_ref', stack.ref);
+			grItem.active = true;
+			grItem.sys_class_name = TABLE_NAME;
+			grItem.setValue('u_cycloid_stack_ref', stack.ref);
 
-                var newItemSysId = grCatItem.insert();
-                if (newItemSysId) {
-                    gs.info("Created new catalog item: " + stack.name + " with Sys ID " + newItemSysId);
-                } else {
-                    gs.error("Failed to create catalog item for stack: " + stack.name);
-                }
-            }
-        }
-    },
+			var itemSysId = isUpdate ? grItem.update() : grItem.insert();
+			if (!itemSysId) {
+				gs.error("Failed to " + (isUpdate ? "update" : "create") + " item for stack: " + stack.name);
+				continue;
+			}
 
-    _getOrCreateCategory: function(categoryName) {
-        var grCat = new GlideRecord('sc_cat_item_category');
-        // New check to ensure the table can be accessed before trying to use it
-        if (!grCat.isValid()) {
-            gs.error("Table 'sc_cat_item_category' is not accessible. Please ensure you have configured a cross-scope privilege for it.");
-            return null;
-        }
+			// Try to set the picture if an image URL is provided
+			if (stack.image) {
+				this._applyImageFromUrl(TABLE_NAME, itemSysId, stack.image);
+			}
 
-        // The correct field name for the category's display name is 'label'.
-        grCat.addQuery('label', categoryName);
-        grCat.query();
+			gs.info((isUpdate ? "Updated" : "Created") + " item for stack '" + stack.name + "' (" + itemSysId + ")");
+		}
+	},
 
-        if (grCat.next()) {
-            gs.info("Found existing service catalog category: " + categoryName);
-            return grCat.getUniqueValue();
-        } else {
-            gs.info("Service catalog category '" + categoryName + "' not found. Creating a new one.");
-            var grNewCat = new GlideRecord('sc_cat_item_category');
-            grNewCat.initialize();
-            // The correct field name for the category's display name is 'label'.
-            grNewCat.label = categoryName;
-            
-            var newCatSysId = grNewCat.insert();
-            if (newCatSysId) {
-                gs.info("Created new service catalog category: " + categoryName + " (Sys ID: " + newCatSysId + ")");
-                return newCatSysId;
-            } else {
-                gs.error("Failed to create service catalog category: " + categoryName + ". Check security policies and cross-scope permissions.");
-                return null;
-            }
-        }
-    },
+	// Resolve an existing sc_category by sys_id (preferred) or by title.
+	_resolveExistingCategory: function(input) {
+		var v = (input || '').toString().trim();
+		if (!v) return null;
 
-    type: 'CycloidIntegration'
-};
-]]></script>
+		if (this._isValidSysId(v)) {
+			var byId = new GlideRecord('sc_category');
+			if (!byId.isValid()) return null;
+			byId.addQuery('sys_id', v);
+			byId.query();
+			if (byId.next()) return byId.getUniqueValue();
+		}
+
+		var byTitle = new GlideRecord('sc_category');
+		if (!byTitle.isValid()) return null;
+		byTitle.addQuery('title', v);
+		byTitle.query();
+		if (byTitle.next()) return byTitle.getUniqueValue();
+
+		return null;
+	},
+
+	// Download an image URL and set it as the item's picture (and thumbnail)
+	_applyImageFromUrl: function(tableName, itemSysId, imageUrl) {
+		try {
+			if (!/^https?:\/\//i.test(imageUrl)) {
+				gs.warn("Invalid image URL: " + imageUrl);
+				return;
+			}
+
+			var rm = new sn_ws.RESTMessageV2();
+			rm.setHttpMethod('get');
+			rm.setEndpoint(imageUrl);
+			rm.setRequestHeader('Accept', 'image/*');
+			var resp = rm.execute();
+			var status = resp.getStatusCode();
+			if (status !== 200) {
+				gs.warn("Image download failed (" + status + "): " + imageUrl);
+				return;
+			}
+
+			var contentType = (resp.getHeader('Content-Type') || '').split(';')[0] || this._guessContentType(imageUrl);
+			var bytes = resp.getBody(); // works for image write
+
+			var item = new GlideRecord(tableName);
+			if (!item.get(itemSysId)) {
+				gs.warn("Item not found for image set: " + itemSysId);
+				return;
+			}
+
+			// remove previous picture attachments (optional)
+			try {
+				var att = new GlideRecord('sys_attachment');
+				att.addQuery('table_name', tableName);
+				att.addQuery('table_sys_id', itemSysId);
+				att.query();
+				while (att.next()) {
+					att.deleteRecord();
+				}
+			} catch (delErr) {}
+
+			var gsa = new GlideSysAttachment();
+			var fileName = this._fileNameFromUrl(imageUrl) || ('cycloid_icon.' + this._extFromType(contentType));
+			var attachId = gsa.write(item, fileName, contentType, bytes);
+
+			if (attachId) {
+				item.setValue('picture', attachId);
+				if (item.isValidField('thumbnail_image')) item.setValue('thumbnail_image', attachId);
+				item.update();
+			}
+		} catch (e) {
+			gs.warn("Failed to set image from URL: " + e);
+		}
+	},
+
+	_guessContentType: function(url) {
+		var ext = (url.split('?')[0].match(/\.([a-z0-9]+)$/i) || [,''])[1].toLowerCase();
+		if (ext === 'png') return 'image/png';
+		if (ext === 'jpg' || ext === 'jpeg') return 'image/jpeg';
+		if (ext === 'gif') return 'image/gif';
+		if (ext === 'svg') return 'image/svg+xml';
+		return 'image/png';
+	},
+
+	_extFromType: function(ct) {
+		if (ct === 'image/png') return 'png';
+		if (ct === 'image/jpeg') return 'jpg';
+		if (ct === 'image/gif') return 'gif';
+		if (ct === 'image/svg+xml') return 'svg';
+		return 'png';
+	},
+
+	_fileNameFromUrl: function(url) {
+		try {
+			var clean = url.split('?')[0];
+			var name = clean.substring(clean.lastIndexOf('/') + 1);
+			return name || null;
+		} catch (e) {
+			return null;
+		}
+	},
+
+	_isValidSysId: function(v) {
+		return /^[0-9a-f]{32}$/.test(String(v || ''));
+	},
+
+	type: 'CycloidIntegration'
+};]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2025-09-03 22:21:42</sys_created_on>
         <sys_id>a7e2fa053b3366102b1ebffe23e45ad6</sys_id>
-        <sys_mod_count>22</sys_mod_count>
+        <sys_mod_count>26</sys_mod_count>
         <sys_name>CycloidIntegration</sys_name>
         <sys_package display_value="Cycloid Stack Catalog Connector" source="x_1829062_cycloi_1">7033a6013bff26102b1ebffe23e45a17</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Cycloid Stack Catalog Connector">7033a6013bff26102b1ebffe23e45a17</sys_scope>
         <sys_update_name>sys_script_include_a7e2fa053b3366102b1ebffe23e45ad6</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-09-04 01:51:40</sys_updated_on>
+        <sys_updated_on>2025-09-04 11:48:54</sys_updated_on>
     </sys_script_include>
 </record_update>
