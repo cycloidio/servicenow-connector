@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {
+  /* widget controller */
+  var c = this;
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/* layout */&#13;
+.row-eq-height { display:flex; flex-wrap:wrap; }&#13;
+.card-col { display:flex; }&#13;
+.c-card {&#13;
+	display:flex; flex-direction:column;&#13;
+	border:1px solid #e5e5e5; border-radius:4px; background:#fff;&#13;
+	text-decoration:none; color:inherit; transition:box-shadow .15s ease;&#13;
+	width:100%; height:100%;&#13;
+}&#13;
+.c-card:hover { box-shadow:0 2px 12px rgba(0,0,0,.12); }&#13;
+&#13;
+/* fixed media height for uniform cards */&#13;
+.c-card__img {&#13;
+	flex:0 0 160px; height:160px;&#13;
+	background-size:cover; background-position:center;&#13;
+	border-bottom:1px solid #eee; border-top-left-radius:4px; border-top-right-radius:4px;&#13;
+}&#13;
+&#13;
+/* body stretches to fill remaining height */&#13;
+.c-card__body { flex:1 1 auto; display:flex; flex-direction:column; padding:12px; }&#13;
+&#13;
+/* clamp title/desc to keep heights consistent */&#13;
+.c-card__title {&#13;
+	font-weight:600; margin-bottom:6px; line-height:1.2;&#13;
+	display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;&#13;
+	min-height:2.4em;&#13;
+}&#13;
+.c-card__desc {&#13;
+	font-size:12px; line-height:1.4;&#13;
+	display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;&#13;
+	margin-top:auto;&#13;
+}&#13;
+&#13;
+.m-b { margin-bottom:16px; }</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>cycloid_stacks_list</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>Cycloid Stacks</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	data.title = 'Cycloid Stacks';
+	data.items = [];
+
+	try {
+		var si = new x_1829062_cycloi_1.CycloidIntegration(); // use API name
+		var cfg = si._getConfig();
+		if (!cfg) { data.error = 'Missing Cycloid configuration.'; return; }
+
+		var stacks = si.getStacks() || [];
+		for (var i = 0; i < stacks.length; i++) {
+			var s = stacks[i] || {};
+			var href = (cfg.console_url || '').replace(/\/+$/,'') +
+				'/organizations/' + encodeURIComponent(cfg.org) +
+				'/stacks/' + encodeURIComponent(s.ref || '');
+			data.items.push({
+				name: s.name || 'Unnamed stack',
+				desc: (s.description || '').toString(),
+				image: s.image || 'https://via.placeholder.com/300x180?text=Cycloid',
+				href: href
+			});
+		}
+	} catch (e) {
+		data.error = String(e);
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-09-05 11:47:39</sys_created_on>
+        <sys_id>85347eed3b7fe6102b1ebffe23e45acc</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Cycloid Stacks</sys_name>
+        <sys_package display_value="Cycloid Stack Catalog Connector" source="x_1829062_cycloi_1">7033a6013bff26102b1ebffe23e45a17</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Cycloid Stack Catalog Connector">7033a6013bff26102b1ebffe23e45a17</sys_scope>
+        <sys_update_name>sp_widget_85347eed3b7fe6102b1ebffe23e45acc</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-09-05 11:47:39</sys_updated_on>
+        <template><![CDATA[<div class="cycloid-stacks">
+	<h2 class="h4 m-b">{{data.title}}</h2>
+
+	<div ng-if="data.error" class="alert alert-danger">{{data.error}}</div>
+	<div ng-if="!data.error && (!data.items || !data.items.length)" class="text-muted">
+		No stacks to display.
+	</div>
+
+	<div class="row row-eq-height" ng-if="!data.error && data.items.length">
+		<div class="card-col col-xs-12 col-sm-6 col-md-4 col-lg-3 m-b"
+		     ng-repeat="it in data.items track by $index">
+			<a class="c-card" ng-href="{{it.href}}" target="_blank" rel="noopener">
+				<div class="c-card__img" ng-style="{'background-image':'url(' + it.image + ')'}"></div>
+				<div class="c-card__body">
+					<div class="c-card__title">{{it.name}}</div>
+					<div class="c-card__desc text-muted">{{it.desc}}</div>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

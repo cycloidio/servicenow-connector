@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_form_sections action="DELETE" form_id="332576853b3366102b1ebffe23e45aa7" sys_domain="global" table="x_1829062_cycloi_1_cycloid_stack_item" version="3">
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-09-03 22:30:59</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>bb253ec53b3366102b1ebffe23e45a59</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1829062_cycloi_1_cycloid_stack_item" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">332576853b3366102b1ebffe23e45aa7</sys_ui_form>
+            <sys_ui_section caption="NULL" display_value="" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">f7253ec53b3366102b1ebffe23e45a4d</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-09-03 22:30:59</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-09-03 22:30:59</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>84353ec53b3366102b1ebffe23e45a72</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1829062_cycloi_1_cycloid_stack_item" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">332576853b3366102b1ebffe23e45aa7</sys_ui_form>
+            <sys_ui_section caption="Item Details" display_value="Item Details" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">84353ec53b3366102b1ebffe23e45a6c</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-09-03 22:30:59</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>2</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-09-03 22:30:59</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>33253ec53b3366102b1ebffe23e45a60</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1829062_cycloi_1_cycloid_stack_item" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">332576853b3366102b1ebffe23e45aa7</sys_ui_form>
+            <sys_ui_section caption="Process Engine" display_value="Process Engine" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">33253ec53b3366102b1ebffe23e45a5a</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-09-03 22:30:59</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>3</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-09-03 22:30:59</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>4c353ec53b3366102b1ebffe23e45a65</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1829062_cycloi_1_cycloid_stack_item" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">332576853b3366102b1ebffe23e45aa7</sys_ui_form>
+            <sys_ui_section caption="Picture" display_value="Picture" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">b7253ec53b3366102b1ebffe23e45a60</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-09-03 22:30:59</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>4</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-09-03 22:30:59</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>00353ec53b3366102b1ebffe23e45a6c</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1829062_cycloi_1_cycloid_stack_item" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">332576853b3366102b1ebffe23e45aa7</sys_ui_form>
+            <sys_ui_section caption="Pricing" display_value="Pricing" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">c0353ec53b3366102b1ebffe23e45a66</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-09-03 22:30:59</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>5</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-09-03 22:30:59</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>3f253ec53b3366102b1ebffe23e45a4c</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1829062_cycloi_1_cycloid_stack_item" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">332576853b3366102b1ebffe23e45aa7</sys_ui_form>
+            <sys_ui_section caption="Portal Settings" display_value="Portal Settings" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">ff2576853b3366102b1ebffe23e45aaa</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-09-03 22:30:59</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form action="INSERT_OR_UPDATE">
+            <name>x_1829062_cycloi_1_cycloid_stack_item</name>
+            <roles/>
+            <sys_class_name>sys_ui_form</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-09-03 22:30:58</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>332576853b3366102b1ebffe23e45aa7</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_1829062_cycloi_1_cycloid_stack_item</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="Cycloid Stack Catalog Connector" source="x_1829062_cycloi_1">7033a6013bff26102b1ebffe23e45a17</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Cycloid Stack Catalog Connector">7033a6013bff26102b1ebffe23e45a17</sys_scope>
+            <sys_update_name>sys_ui_form_sections_332576853b3366102b1ebffe23e45aa7</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-09-03 22:30:58</sys_updated_on>
+            <sys_user/>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_form>
+    </sys_ui_form_sections>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Cycloid Stack Catalog Connector">7033a6013bff26102b1ebffe23e45a17</application>
+        <file_path/>
+        <instance_id>af4a78bcfbd36e9452b0f3585eefdc4e</instance_id>
+        <instance_name>dev355908</instance_name>
+        <name>sys_ui_form_sections_332576853b3366102b1ebffe23e45aa7</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sys_ui_form_sections form_id="332576853b3366102b1ebffe23e45aa7" sys_domain="global" table="x_1829062_cycloi_1_cycloid_stack_item" version="3"><sys_ui_form_section action="INSERT_OR_UPDATE"><position>0</position><sys_created_by>admin</sys_created_by><sys_created_on>2025-09-03 22:30:59</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>bb253ec53b3366102b1ebffe23e45a59</sys_id><sys_mod_count>0</sys_mod_count><sys_overrides/><sys_ui_form display_value="x_1829062_cycloi_1_cycloid_stack_item" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">332576853b3366102b1ebffe23e45aa7</sys_ui_form><sys_ui_section caption="NULL" display_value="" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">f7253ec53b3366102b1ebffe23e45a4d</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-09-03 22:30:59</sys_updated_on></sys_ui_form_section><sys_ui_form_section action="INSERT_OR_UPDATE"><position>1</position><sys_created_by>admin</sys_created_by><sys_created_on>2025-09-03 22:30:59</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>84353ec53b3366102b1ebffe23e45a72</sys_id><sys_mod_count>0</sys_mod_count><sys_overrides/><sys_ui_form display_value="x_1829062_cycloi_1_cycloid_stack_item" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">332576853b3366102b1ebffe23e45aa7</sys_ui_form><sys_ui_section caption="Item Details" display_value="Item Details" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">84353ec53b3366102b1ebffe23e45a6c</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-09-03 22:30:59</sys_updated_on></sys_ui_form_section><sys_ui_form_section action="INSERT_OR_UPDATE"><position>2</position><sys_created_by>admin</sys_created_by><sys_created_on>2025-09-03 22:30:59</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>33253ec53b3366102b1ebffe23e45a60</sys_id><sys_mod_count>0</sys_mod_count><sys_overrides/><sys_ui_form display_value="x_1829062_cycloi_1_cycloid_stack_item" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">332576853b3366102b1ebffe23e45aa7</sys_ui_form><sys_ui_section caption="Process Engine" display_value="Process Engine" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">33253ec53b3366102b1ebffe23e45a5a</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-09-03 22:30:59</sys_updated_on></sys_ui_form_section><sys_ui_form_section action="INSERT_OR_UPDATE"><position>3</position><sys_created_by>admin</sys_created_by><sys_created_on>2025-09-03 22:30:59</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>4c353ec53b3366102b1ebffe23e45a65</sys_id><sys_mod_count>0</sys_mod_count><sys_overrides/><sys_ui_form display_value="x_1829062_cycloi_1_cycloid_stack_item" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">332576853b3366102b1ebffe23e45aa7</sys_ui_form><sys_ui_section caption="Picture" display_value="Picture" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">b7253ec53b3366102b1ebffe23e45a60</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-09-03 22:30:59</sys_updated_on></sys_ui_form_section><sys_ui_form_section action="INSERT_OR_UPDATE"><position>4</position><sys_created_by>admin</sys_created_by><sys_created_on>2025-09-03 22:30:59</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>00353ec53b3366102b1ebffe23e45a6c</sys_id><sys_mod_count>0</sys_mod_count><sys_overrides/><sys_ui_form display_value="x_1829062_cycloi_1_cycloid_stack_item" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">332576853b3366102b1ebffe23e45aa7</sys_ui_form><sys_ui_section caption="Pricing" display_value="Pricing" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">c0353ec53b3366102b1ebffe23e45a66</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-09-03 22:30:59</sys_updated_on></sys_ui_form_section><sys_ui_form_section action="INSERT_OR_UPDATE"><position>5</position><sys_created_by>admin</sys_created_by><sys_created_on>2025-09-03 22:30:59</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>3f253ec53b3366102b1ebffe23e45a4c</sys_id><sys_mod_count>0</sys_mod_count><sys_overrides/><sys_ui_form display_value="x_1829062_cycloi_1_cycloid_stack_item" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">332576853b3366102b1ebffe23e45aa7</sys_ui_form><sys_ui_section caption="Portal Settings" display_value="Portal Settings" name="x_1829062_cycloi_1_cycloid_stack_item" sys_domain="global" view="Default view">ff2576853b3366102b1ebffe23e45aaa</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-09-03 22:30:59</sys_updated_on></sys_ui_form_section><sys_ui_form action="INSERT_OR_UPDATE"><name>x_1829062_cycloi_1_cycloid_stack_item</name><roles/><sys_class_name>sys_ui_form</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-09-03 22:30:58</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>332576853b3366102b1ebffe23e45aa7</sys_id><sys_mod_count>0</sys_mod_count><sys_name>x_1829062_cycloi_1_cycloid_stack_item</sys_name><sys_overrides/><sys_package display_value="Cycloid Stack Catalog Connector" source="x_1829062_cycloi_1">7033a6013bff26102b1ebffe23e45a17</sys_package><sys_policy/><sys_scope display_value="Cycloid Stack Catalog Connector">7033a6013bff26102b1ebffe23e45a17</sys_scope><sys_update_name>sys_ui_form_sections_332576853b3366102b1ebffe23e45aa7</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-09-03 22:30:58</sys_updated_on><sys_user/><view display_value="Default view" name="NULL">Default view</view><view_name/></sys_ui_form></sys_ui_form_sections></record_update>]]></payload>
+        <payload_hash>483951837</payload_hash>
+        <record_name>Cycloid Stack Item</record_name>
+        <reverted_from/>
+        <source>e2adea893bbf26102b1ebffe23e45ae5</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-09-03 22:30:59</sys_created_on>
+        <sys_id>4c353ec53b3366102b1ebffe23e45a74</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19911b467d10000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-09-03 22:30:59</sys_updated_on>
+        <type>Form Sections</type>
+        <update_guid>80353ec5143366106135b7e0d4725074</update_guid>
+        <update_guid_history>80353ec5143366106135b7e0d4725074:483951837,3b2576857d33661080e30f42481257a9:1802471171</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-09-04 00:14:55</sys_created_on>
+        <sys_db_object display_value="" name="sys_ui_form">sys_ui_form</sys_db_object>
+        <sys_id>5c41e37a27154414ae372cf6705da841</sys_id>
+        <sys_metadata>332576853b3366102b1ebffe23e45aa7</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1829062_cycloi_1_cycloid_stack_item</sys_name>
+        <sys_package display_value="Cycloid Stack Catalog Connector" source="x_1829062_cycloi_1">7033a6013bff26102b1ebffe23e45a17</sys_package>
+        <sys_parent display_value="">5325fac53b3366102b1ebffe23e45aed</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="Cycloid Stack Catalog Connector">7033a6013bff26102b1ebffe23e45a17</sys_scope>
+        <sys_scope_delete display_value="">0d2c7e0523204d269f1e160584cf8af9</sys_scope_delete>
+        <sys_update_name>sys_ui_form_sections_332576853b3366102b1ebffe23e45aa7</sys_update_name>
+        <sys_update_version display_value="sys_ui_form_sections_332576853b3366102b1ebffe23e45aa7">4c353ec53b3366102b1ebffe23e45a74</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-09-04 00:14:55</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
