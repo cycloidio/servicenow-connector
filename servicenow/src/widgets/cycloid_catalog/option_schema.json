@@ -1,0 +1,4 @@
+[
+  {"name": "title", "section": "Presentation", "label": "Title", "type": "string", "default_value": "Cycloid services"},
+  {"name": "open_in_new_tab", "section": "Behavior", "label": "Open the Cycloid console in a new tab", "type": "boolean", "default_value": "false"}
+]

@@ -1,0 +1,87 @@
+<div class="cy-catalog">
+  <div class="cy-header">
+    <h2 class="h3 cy-title">{{::c.data.title}}</h2>
+    <input type="search" class="form-control cy-search" ng-model="c.search"
+           placeholder="${Search a service}" aria-label="${Search a service}"/>
+  </div>
+
+  <div ng-if="!c.data.configured" class="alert alert-warning">
+    ${The Cycloid connector is not configured yet.}
+  </div>
+
+  <div ng-if="c.data.configured && !c.data.items.length" class="text-muted cy-empty">
+    ${No Cycloid service is available yet.}
+  </div>
+
+  <div class="row cy-grid" ng-if="c.data.items.length">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 cy-col" ng-repeat="it in c.filtered() track by it.sys_id">
+      <button type="button" class="cy-card" ng-click="c.open(it)" aria-label="{{::it.name}}">
+        <span class="cy-card__media">
+          <img ng-if="it.picture" ng-src="{{::it.picture}}" alt=""/>
+          <span ng-if="!it.picture" class="cy-card__initials">{{::it.initials}}</span>
+        </span>
+        <span class="cy-card__body">
+          <span class="cy-card__name">{{::it.name}}</span>
+          <span class="cy-card__desc">{{::it.short_description}}</span>
+        </span>
+        <span class="cy-card__cta">${Deploy} <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="cy-overlay" ng-if="c.selected" ng-click="c.close()">
+    <div class="cy-dialog panel panel-default" role="dialog" aria-modal="true" ng-click="$event.stopPropagation()">
+      <div class="panel-heading">
+        <button type="button" class="close" ng-click="c.close()" ng-disabled="c.busy" aria-label="${Close}">&times;</button>
+        <h3 class="panel-title">{{c.selected.name}}</h3>
+      </div>
+      <div class="panel-body">
+        <p class="text-muted">{{c.selected.short_description}}</p>
+
+        <div ng-if="!c.data.projects.length" class="alert alert-warning">
+          ${No Cycloid project is available.}
+        </div>
+
+        <form name="cyForm" ng-submit="c.submit()" ng-if="c.data.projects.length" novalidate>
+          <div class="form-group">
+            <label for="cy-project">${Project}</label>
+            <select id="cy-project" class="form-control" ng-model="c.form.project" ng-change="c.onProjectChange()"
+                    ng-disabled="c.busy" required>
+              <option value="">${Select a project}</option>
+              <option ng-repeat="p in c.data.projects track by p.sys_id" value="{{p.sys_id}}">{{p.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="cy-env">${Environment}</label>
+            <select id="cy-env" class="form-control" ng-model="c.form.environment"
+                    ng-disabled="c.busy || !c.form.project" required>
+              <option value="">${Select an environment}</option>
+              <option ng-repeat="e in c.environments() track by e.sys_id" value="{{e.sys_id}}">{{e.name}}</option>
+            </select>
+            <p class="help-block" ng-if="c.form.project && !c.environments().length">
+              ${This project has no environment yet.}
+            </p>
+          </div>
+
+          <div ng-if="c.error" class="alert alert-danger" role="alert">{{c.error}}</div>
+          <div ng-if="c.done" class="alert alert-success" role="status">
+            ${Request} {{c.done.ritm_number}} ${created.}
+            <a ng-href="{{c.done.create_url}}" target="_blank" rel="noopener">${Continue in Cycloid}</a>
+          </div>
+
+          <p class="small text-muted">
+            ${You will continue in the Cycloid console to configure and deploy the component. The status of your request is updated automatically.}
+          </p>
+
+          <div class="text-right">
+            <button type="button" class="btn btn-default" ng-click="c.close()" ng-disabled="c.busy">${Cancel}</button>
+            <button type="submit" class="btn btn-primary" ng-disabled="!c.canSubmit()">
+              <span ng-if="!c.busy">${Continue in Cycloid}</span>
+              <span ng-if="c.busy"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i> ${Creating the request...}</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

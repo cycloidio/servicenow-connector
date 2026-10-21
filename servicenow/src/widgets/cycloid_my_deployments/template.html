@@ -1,0 +1,33 @@
+<div class="panel panel-default cy-deployments">
+  <div class="panel-heading cy-deployments__heading">
+    <h3 class="panel-title">{{c.data.title}}</h3>
+    <button type="button" class="btn btn-link btn-xs" ng-click="c.refresh()" aria-label="${Refresh}">
+      <i class="fa fa-refresh" aria-hidden="true"></i> ${Refresh}
+    </button>
+  </div>
+  <div class="panel-body text-muted" ng-if="!c.data.items.length">
+    ${You have not requested any Cycloid deployment yet.}
+  </div>
+  <ul class="list-group" ng-if="c.data.items.length">
+    <li class="list-group-item cy-deployment" ng-repeat="it in c.data.items track by it.sys_id">
+      <div class="cy-deployment__main">
+        <div class="cy-deployment__title">
+          <strong>{{it.stack}}</strong>
+          <span class="text-muted">&middot; {{it.project}} / {{it.environment}}</span>
+        </div>
+        <span class="label" ng-class="c.labelClass(it.status)">{{it.status}}</span>
+      </div>
+      <div class="small text-muted cy-deployment__meta">
+        <a ng-href="?id=ticket&table=sc_req_item&sys_id={{it.ritm_sys_id}}">{{it.ritm_number}}</a>
+        &middot; {{it.requested_at}}
+        <span ng-if="it.component_name">&middot; ${Component} {{it.component_name}}</span>
+      </div>
+      <div class="small cy-deployment__message" ng-if="it.status_message">{{it.status_message}}</div>
+      <div class="small cy-deployment__links">
+        <a ng-if="it.status === 'Awaiting component'" ng-href="{{it.create_url}}" target="_blank" rel="noopener">${Continue in Cycloid}</a>
+        <a ng-if="it.build_url" ng-href="{{it.build_url}}" target="_blank" rel="noopener">${Open the build}</a>
+        <a ng-if="it.component_url" ng-href="{{it.component_url}}" target="_blank" rel="noopener">${Open the component}</a>
+      </div>
+    </li>
+  </ul>
+</div>
