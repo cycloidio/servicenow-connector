@@ -2,7 +2,7 @@
 
 Self-service for Cycloid from the ServiceNow portal. The connector publishes Cycloid stacks as ServiceNow services. Users pick one, choose a Cycloid project and environment, then finish and deploy in the Cycloid console. ServiceNow follows the deployment pipeline and updates the request on its own.
 
-- Scoped application `x_1829062_cycloi_1` ("Cycloid Stack Catalog Connector"), version 2.0.0
+- Scoped application `x_1829062_cycloi_1` ("Cycloid Stack Catalog Connector"), version 2.0.1
 - Targets: ServiceNow Zurich, Cycloid SaaS (EU and US consoles)
 - Design details: [docs/design.md](docs/design.md)
 
@@ -98,9 +98,9 @@ Prerequisites:
 
 Install the application:
 
-1. Download [`dist/cycloid-servicenow-connector-v2.0.0.xml`](dist/cycloid-servicenow-connector-v2.0.0.xml).
+1. Download [`dist/cycloid-servicenow-connector-v2.0.1.xml`](dist/cycloid-servicenow-connector-v2.0.1.xml).
 2. In ServiceNow, open **System Update Sets → Retrieved Update Sets** and click **Import Update Set from XML**. Upload the file.
-3. Open the retrieved update set *Cycloid connector v2.0.0* and click **Preview Update Set**, then **Commit Update Set**.
+3. Open the retrieved update set *Cycloid connector v2.0.1* and click **Preview Update Set**, then **Commit Update Set**.
 4. Refresh the browser. The **Cycloid** menu appears in the navigator.
 
 ## Configuration
@@ -173,7 +173,7 @@ questions.md               open questions and next steps
 ## Development
 
 ```bash
-python3 servicenow/build.py   # regenerate dist/cycloid-servicenow-connector-v2.0.0.xml
+python3 servicenow/build.py   # regenerate dist/cycloid-servicenow-connector-v2.0.1.xml
 node tests/run.js             # logic tests, no dependency needed
 npm install && npm run test:ui  # optional: render the widgets in headless Chromium (screenshots in tests/ui/out)
 ```

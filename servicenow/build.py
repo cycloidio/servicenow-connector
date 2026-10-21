@@ -30,7 +30,7 @@ SRC = os.path.join(SN, 'src')
 BASE = os.path.join(SN, 'base')
 DIST = os.path.join(ROOT, 'dist')
 
-VERSION = '2.0.0'
+VERSION = '2.0.1'
 APP_ID = '7033a6013bff26102b1ebffe23e45a17'
 APP_NAME = 'Cycloid Stack Catalog Connector'
 SCOPE = 'x_1829062_cycloi_1'
@@ -717,7 +717,7 @@ def write_update_set(updates):
             element('remote_update_set', Ref(remote_id, set_name), '    '),
             element('replace_on_upgrade', 'false', '    '),
             element('sys_created_by', AUTHOR, '    '), element('sys_created_on', STAMP, '    '),
-            element('sys_id', sid('update_xml/' + u.name), '    '),
+            element('sys_id', sid('update_xml/' + VERSION + '/' + u.name), '    '),
             element('sys_mod_count', '0', '    '),
             element('sys_recorded_at', '%x%07x' % (recorded, i + 1), '    '),
             element('sys_updated_by', AUTHOR, '    '), element('sys_updated_on', STAMP, '    '),
@@ -725,8 +725,8 @@ def write_update_set(updates):
             element('target_name', u.target, '    '),
             element('type', TYPE_NAMES.get(u.table, u.table), '    '),
             element('update_domain', 'global', '    '),
-            element('update_guid', sid('guid/' + u.name), '    '),
-            element('update_guid_history', sid('guid/' + u.name) + ':0', '    '),
+            element('update_guid', sid('guid/' + VERSION + '/' + u.name), '    '),
+            element('update_guid_history', sid('guid/' + VERSION + '/' + u.name) + ':0', '    '),
             '    <update_set display_value=""/>',
             '    <view/>',
             '</sys_update_xml>']))
@@ -739,6 +739,19 @@ def write_update_set(updates):
     return path
 
 
+def check_privileges(updates):
+    """sys_scope_privilege is unique on (source, target scope, target, type, operation)."""
+    seen = {}
+    for u in updates:
+        if u.table != 'sys_scope_privilege' or u.action != 'INSERT_OR_UPDATE':
+            continue
+        g = lambda k: (re.search(r'<%s[^>]*>([^<]*)</%s>' % (k, k), u.payload) or [None, ''])[1]
+        key = (g('target_scope'), g('target_name'), g('target_type'), g('operation'))
+        if key in seen:
+            sys.exit('Duplicate cross scope privilege %s: %s and %s' % (key, seen[key], u.name))
+        seen[key] = u.name
+
+
 def main():
     del UPDATES[:]
     build_tables()
@@ -749,6 +762,7 @@ def main():
     build_portal()
     build_navigation()
     updates = base_updates() + UPDATES
+    check_privileges(updates)
     names = [u.name for u in updates]
     duplicates = sorted(set(n for n in names if names.count(n) > 1))
     if duplicates:
