@@ -472,6 +472,20 @@ function createEnvironment(options) {
 		}
 	}
 
+	class CatalogItemVariableSetM2M {
+		setAttributes(attrs) {
+			this.attrs = attrs;
+		}
+		create() {
+			const gr = GlideRecord('io_set_item');
+			gr.initialize();
+			for (const k in this.attrs) {
+				gr.setValue(k, this.attrs[k]);
+			}
+			return gr.insert();
+		}
+	}
+
 	const Class = {
 		create: function() {
 			return function() {
@@ -486,7 +500,7 @@ function createEnvironment(options) {
 		GlideSysAttachment: GlideSysAttachment,
 		gs: gs,
 		sn_ws: { RESTMessageV2: RESTMessageV2 },
-		sn_sc: { CartJS: CartJS },
+		sn_sc: { CartJS: CartJS, CatalogItemVariableSetM2M: CatalogItemVariableSetM2M },
 		Class: Class,
 		JSON: JSON,
 		console: console

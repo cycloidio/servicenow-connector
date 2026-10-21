@@ -164,7 +164,11 @@ CycloidSync.prototype = {
 		}
 	},
 
-	/** Attaches the "Cycloid deployment target" variable set to the item. */
+	/**
+	 * Attaches the "Cycloid deployment target" variable set to the item.
+	 * Scoped applications cannot write io_set_item directly (cross-scope
+	 * policy of the table), so the Service Catalog scoped API is used.
+	 */
 	_ensureVariableSet: function(itemSysId) {
 		var link = new GlideRecord('io_set_item');
 		link.addQuery('sc_cat_item', itemSysId);
@@ -173,12 +177,18 @@ CycloidSync.prototype = {
 		if (link.next()) {
 			return;
 		}
-		link.initialize();
-		link.setValue('sc_cat_item', itemSysId);
-		link.setValue('variable_set', CycloidSync.VARIABLE_SET_ID);
-		link.setValue('order', 100);
-		if (!link.insert()) {
-			CycloidApi.warn('Could not attach the Cycloid variable set to catalog item ' + itemSysId);
+		try {
+			var m2m = new sn_sc.CatalogItemVariableSetM2M();
+			m2m.setAttributes({
+				sc_cat_item: itemSysId,
+				variable_set: CycloidSync.VARIABLE_SET_ID,
+				order: 100
+			});
+			if (!m2m.create(true)) {
+				CycloidApi.warn('Could not attach the Cycloid variable set to catalog item ' + itemSysId);
+			}
+		} catch (e) {
+			CycloidApi.warn('Could not attach the Cycloid variable set to catalog item ' + itemSysId + ': ' + e.message);
 		}
 	},
 

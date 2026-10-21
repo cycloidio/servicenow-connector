@@ -30,7 +30,7 @@ SRC = os.path.join(SN, 'src')
 BASE = os.path.join(SN, 'base')
 DIST = os.path.join(ROOT, 'dist')
 
-VERSION = '2.0.1'
+VERSION = '2.0.2'
 APP_ID = '7033a6013bff26102b1ebffe23e45a17'
 APP_NAME = 'Cycloid Stack Catalog Connector'
 SCOPE = 'x_1829062_cycloi_1'
@@ -401,7 +401,6 @@ def build_security():
         ('sc_req_item', 'sys_db_object', 'write'),
         ('sc_request', 'sys_db_object', 'read'),
         ('io_set_item', 'sys_db_object', 'read'),
-        ('io_set_item', 'sys_db_object', 'create'),
         ('sc_category', 'sys_db_object', 'read'),
         ('ScriptableRESTMessageClient.saveResponseBodyAsAttachment', 'scriptable', 'execute'),
         ('ScriptableRESTMessageClient.setHttpTimeout', 'scriptable', 'execute'),

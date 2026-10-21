@@ -114,7 +114,7 @@ Summary:
 v2 was tested with in-memory fakes of the ServiceNow and Cycloid APIs (`tests/run.js`) and with a widget rendering harness (`tests/ui`). It still has to be checked on the Zurich PDI:
 
 - The update set preview shows no errors, and the tables, forms, menu and portal page are created.
-- Cross-scope access to `sc_req_item` (state and comments) and `io_set_item` (variable set link) is allowed by those tables' application access settings.
+- Cross-scope access to `sc_req_item` (state and comments) is allowed by its application access settings (the variable set link uses the `sn_sc.CatalogItemVariableSetM2M` scoped API, because `io_set_item` refuses direct writes from other scopes).
 - The catalog items are visible to non-admin users in the portal and the Service Catalog, with their pictures.
 - In the standard catalog, the dependent environment variable filters correctly (`ref_qual_elements`).
 - The `canonical` query parameter on the console create page behaves as expected with a real stack list.
