@@ -1,0 +1,17 @@
+{
+  "name": "cycloid-servicenow-connector",
+  "version": "2.0.2",
+  "private": true,
+  "description": "Cycloid connector for ServiceNow (scoped application)",
+  "scripts": {
+    "build": "python3 servicenow/build.py",
+    "test": "node tests/run.js",
+    "test:ui": "node tests/ui/preview.js"
+  },
+  "devDependencies": {
+    "angular": "1.5.11",
+    "bootstrap": "3.4.1",
+    "font-awesome": "4.7.0",
+    "playwright-core": "1.55.0"
+  }
+}

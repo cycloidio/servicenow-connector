@@ -1,0 +1,4 @@
+[
+  {"name": "title", "section": "Presentation", "label": "Title", "type": "string", "default_value": "My Cycloid deployments"},
+  {"name": "limit", "section": "Data", "label": "Number of requests to show", "type": "integer", "default_value": "10"}
+]

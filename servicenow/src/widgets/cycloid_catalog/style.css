@@ -1,0 +1,31 @@
+.cy-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.cy-title { margin: 0; }
+.cy-search { max-width: 320px; }
+.cy-empty { padding: 24px 0; }
+.cy-grid { display: flex; flex-wrap: wrap; }
+.cy-col { display: flex; margin-bottom: 20px; }
+.cy-card {
+  display: flex; flex-direction: column; width: 100%; padding: 0; text-align: left;
+  background: #fff; border: 1px solid #e3e3e3; border-radius: 6px; color: inherit;
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+.cy-card:hover, .cy-card:focus { border-color: #1f8476; box-shadow: 0 4px 14px rgba(0,0,0,.10); outline: none; }
+.cy-card__media {
+  display: flex; align-items: center; justify-content: center; height: 120px;
+  background: #f4f7f6; border-bottom: 1px solid #eee; border-radius: 6px 6px 0 0;
+}
+.cy-card__media img { max-height: 80px; max-width: 70%; }
+.cy-card__initials { font-size: 32px; font-weight: 600; color: #1f8476; }
+.cy-card__body { display: flex; flex-direction: column; flex: 1 1 auto; padding: 12px 14px 4px; }
+.cy-card__name { font-weight: 600; margin-bottom: 6px; }
+.cy-card__desc {
+  font-size: 12px; line-height: 1.4; color: #666;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.cy-card__cta { padding: 8px 14px 12px; font-size: 12px; font-weight: 600; color: #1f8476; }
+.cy-overlay {
+  position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 1050;
+  display: flex; align-items: center; justify-content: center; padding: 16px;
+  background: rgba(0,0,0,.45);
+}
+.cy-dialog { width: 100%; max-width: 520px; margin: 0; max-height: 100%; overflow: auto; }

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><database>
-    <element db_object_id="c91bcb093bb366102b1ebffe23e45a4b" label="Cycloid Configuration" max_length="40" name="x_1829062_cycloi_1_cycloid_config" type="collection">
-        <element label="api_url" mandatory="true" max_length="256" name="api_url" type="string"/>
-        <element label="console_url" mandatory="true" max_length="256" name="console_url" type="string"/>
-        <element label="catalog_category" mandatory="true" max_length="100" name="catalog_category" type="string"/>
-        <element label="api_key" mandatory="true" max_length="1024" name="api_key" type="string"/>
-        <element label="organization_canonical" mandatory="true" max_length="256" name="organization_canonical" type="string"/>
-    </element>
-</database>

@@ -1,0 +1,5 @@
+.cy-deployments__heading { display: flex; align-items: center; justify-content: space-between; }
+.cy-deployment__main { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.cy-deployment__meta, .cy-deployment__message { margin-top: 4px; }
+.cy-deployment__links { margin-top: 6px; }
+.cy-deployment__links a { margin-right: 12px; }
